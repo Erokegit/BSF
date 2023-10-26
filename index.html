@@ -46,14 +46,16 @@
     <h1>Table Search Example</h1>
     <input type="text" id="searchInput" placeholder="Search for something">
     
+    
+            <!-- Add your data rows here -->
             <table class="table table-bordered table-hover table-condensed">
-                <thead><tr><th title="Field #1">Sl. No.</th>
+<thead><tr><th title="Field #1">Sl. No.</th>
 <th title="Field #2">BIB Number</th>
 <th title="Field #3">First Name</th>
 <th title="Field #4">Last Name</th>
 <th title="Field #5">M/F</th>
 <th title="Field #6">Email</th>
-<th title="Field #7">phone</th>
+<th title="Field #7">Phone</th>
 <th title="Field #8">Run</th>
 <th title="Field #9">TShirt Size</th>
 </tr></thead>
@@ -926,29 +928,48 @@
 <td>50K</td>
 <td>L</td>
 </tr>
+
         </tbody>
     </table>
 
     <div class="details" id="details">
         <h3>Details</h3>
-        <div class="details-title" id="detailsSlNoTitle"></div>
-        <div class="details-title" id="detailsBIBNumberTitle"></div>
-        <div class="details-title" id="detailsFirstNameTitle"></div>
-        <div class="details-title" id="detailsLastNameTitle"></div>
-        <div class="details-title" id="detailsMFTitle"></div>
-        <div class="details-title" id="detailsEmailTitle"></div>
-        <div class="details-title" id="detailsPhoneTitle"></div>
-        <div class="details-title" id="detailsRunTitle"></div>
-        <div class="details-title" id="detailsTshirtSizeTitle"></div>
-        <p id="detailsSlNo"></p>
-        <p id="detailsBIBNumber"></p>
-        <p id="detailsFirstName"></p>
-        <p id="detailsLastName"></p>
-        <p id="detailsMF"></p>
-        <p id="detailsEmail"></p>
-        <p id="detailsPhone"></p>
-        <p id="detailsRun"></p>
-        <p id="detailsTshirtSize"></p>
+        <div class="details-row">
+            <div class="details-title" id="detailsSlNoTitle"></div>
+            <p id="detailsSlNo"></p>
+        </div>
+        <div class="details-row">
+            <div class="details-title" id="detailsBIBNumberTitle"></div>
+            <p id="detailsBIBNumber"></p>
+        </div>
+        <div class="details-row">
+            <div class="details-title" id="detailsFirstNameTitle"></div>
+            <p id="detailsFirstName"></p>
+        </div>
+        <div class="details-row">
+            <div class="details-title" id="detailsLastNameTitle"></div>
+            <p id="detailsLastName"></p>
+        </div>
+        <div class="details-row">
+            <div class="details-title" id="detailsMFTitle"></div>
+            <p id="detailsMF"></p>
+        </div>
+        <div class="details-row">
+            <div class="details-title" id="detailsEmailTitle"></div>
+            <p id="detailsEmail"></p>
+        </div>
+        <div class="details-row">
+            <div class="details-title" id="detailsPhoneTitle"></div>
+            <p id="detailsPhone"></p>
+        </div>
+        <div class="details-row">
+            <div class="details-title" id="detailsRunTitle"></div>
+            <p id="detailsRun"></p>
+        </div>
+        <div class="details-row">
+            <div class="details-title" id="detailsTshirtSizeTitle"></div>
+            <p id="detailsTshirtSize"></p>
+        </div>
         <div class="checkbox-container">
             <label for="checkbox">Add to Cart</label>
             <input type="checkbox" id="checkbox">
