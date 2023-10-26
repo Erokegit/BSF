@@ -1,78 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Table Search Example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runner Data</title>
     <style>
-        table {
-            border-collapse: collapse;
-            width: 80%;
-            margin: 20px auto;
+        body {
+            font-family: Arial, sans-serif;
         }
-
+        .table-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
         th, td {
-            border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
-
         th {
             background-color: #f2f2f2;
         }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 5px;
-            margin: 10px 0;
+        tr:hover {
+            background-color: #f5f5f5;
         }
-
-        .details {
-            display: none;
+        .search-bar {
+            margin-bottom: 20px;
         }
-
-        .details.active {
-            display: block;
-        }
-
-        .checkbox-container {
-            margin-top: 10px;
-        }
-
-        .details-title {
-            font-weight: bold;
-        }
-
-        @media (prefers-color-scheme: dark) {
-    body {
-        background-color: #333;
-        color: #fff;
-    }
-
-    table, th, td {
-        border-color: #666;
-        color: #fff;
-    }
-
-    th {
-        background-color: #444;
-    }
-}
-
     </style>
 </head>
 <body>
-    <h1>Table Search Example</h1>
-    <input type="text" id="searchInput" placeholder="Search for something">
-    
-    
-            <!-- Add your data rows here -->
-            <table class="table table-bordered table-hover table-condensed">
+    <div class="table-container">
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search for a runner...">
+        <table class="table table-bordered table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th title="Field #1">Sl. No.</th>
+                    <th title="Field #2">BIB Number</th>
+                    <th title="Field #3">First Name</th>
+                    <th title="Field #4">Last Name</th>
+                    <th title="Field #5">M/F</th>
+                    <th title="Field #6">Email</th>
+                    <th title="Field #7">Phone</th>
+                    <th title="Field #8">Run</th>
+                    <th title="Field #9">T-Shirt Size</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <!-- Data will be dynamically inserted here -->
+                <table class="table table-bordered table-hover table-condensed">
 <thead><tr><th title="Field #1">Sl. No.</th>
 <th title="Field #2">BIB Number</th>
 <th title="Field #3">First Name</th>
 <th title="Field #4">Last Name</th>
 <th title="Field #5">M/F</th>
 <th title="Field #6">Email</th>
-<th title="Field #7">Phone</th>
+<th title="Field #7">phone</th>
 <th title="Field #8">Run</th>
 <th title="Field #9">TShirt Size</th>
 </tr></thead>
@@ -945,114 +933,91 @@
 <td>50K</td>
 <td>L</td>
 </tr>
-
-        </tbody>
-    </table>
-
-    <div class="details" id="details">
-        <h3>Details</h3>
-        <div class="details-row">
-            <div class="details-title" id="detailsSlNoTitle"></div>
-            <p id="detailsSlNo"></p>
-        </div>
-        <div class="details-row">
-            <div class="details-title" id="detailsBIBNumberTitle"></div>
-            <p id="detailsBIBNumber"></p>
-        </div>
-        <div class="details-row">
-            <div class="details-title" id="detailsFirstNameTitle"></div>
-            <p id="detailsFirstName"></p>
-        </div>
-        <div class="details-row">
-            <div class="details-title" id="detailsLastNameTitle"></div>
-            <p id="detailsLastName"></p>
-        </div>
-        <div class="details-row">
-            <div class="details-title" id="detailsMFTitle"></div>
-            <p id="detailsMF"></p>
-        </div>
-        <div class="details-row">
-            <div class="details-title" id="detailsEmailTitle"></div>
-            <p id="detailsEmail"></p>
-        </div>
-        <div class="details-row">
-            <div class="details-title" id="detailsPhoneTitle"></div>
-            <p id="detailsPhone"></p>
-        </div>
-        <div class="details-row">
-            <div class="details-title" id="detailsRunTitle"></div>
-            <p id="detailsRun"></p>
-        </div>
-        <div class="details-row">
-            <div class="details-title" id="detailsTshirtSizeTitle"></div>
-            <p id="detailsTshirtSize"></p>
-        </div>
-        <div class="checkbox-container">
-            <label for="checkbox">Bib Collected</label>
-            <input type="checkbox" id="checkbox">
-        </div>
+            </tbody>
+        </table>
     </div>
 
     <script>
-        // Get the input field, table body, and details container
-        var input = document.getElementById('searchInput');
-        var table = document.querySelector('table');
-        var details = document.getElementById('details');
+        // Data for the table
+        const data = [
+            ["1", "B42 5001", "Shyamaprasad", "Srinivas", "Male", "shyambs76@gmail.com", "9880511150", "50K", "M"],
+            // ... Add all your data here
+            ["79", "B42 5079", "Suresh", "Vemulapalli", "Male", "suvemu@yahoo.com", "9885656245", "50K", "L"]
+        ];
 
-        // Add an event listener to the input field to handle searches
-        input.addEventListener('input', function() {
-            var query = input.value.toLowerCase();
-            var rows = table.querySelectorAll('tbody tr');
+        // Reference to the table body
+        const tableBody = document.getElementById('tableBody');
 
-            rows.forEach(function(row) {
-                var data = row.textContent.toLowerCase();
-                if (data.includes(query)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
+        // Populate the table with data
+        function populateTable(data) {
+            tableBody.innerHTML = '';
+            data.forEach((rowData, index) => {
+                const row = document.createElement('tr');
+
+                rowData.forEach((cellData, cellIndex) => {
+                    const cell = document.createElement(cellIndex === 0 ? 'th' : 'td');
+                    cell.textContent = cellData;
+
+                    // Create a dropdown for each row
+                    if (cellIndex === 2) {
+                        const dropdown = document.createElement('div');
+                        dropdown.className = 'dropdown';
+                        dropdown.innerHTML = `
+                            <button class="dropdown-btn">Show Data</button>
+                            <div class="dropdown-content" id="dropdown${index}">
+                                <p>Data Field: ${rowData[0]}</p>
+                                <p>Data Field 2: ${rowData[1]}</p>
+                                <p>Data Field 3: ${rowData[2]}</p>
+                                <p>Data Field 4: ${rowData[3}</p>
+                                <p>Data Field 5: ${rowData[4]}</p>
+                                <p>Data Field 6: ${rowData[5]}</p>
+                                <p>Data Field 7: ${rowData[6]}</p>
+                                <p>Data Field 8: ${rowData[7]}</p>
+                                <p>Data Field 9: ${rowData[8]}</p>
+                            </div>
+                        `;
+
+                        cell.appendChild(dropdown);
+                    }
+
+                    row.appendChild(cell);
+                });
+
+                // Create a checkbox for each row
+                const checkboxCell = document.createElement('td');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `checkbox${index}`;
+                checkboxCell.appendChild(checkbox);
+                row.appendChild(checkboxCell);
+
+                tableBody.appendChild(row);
             });
+        }
+
+        // Initialize the table
+        populateTable(data);
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function () {
+            const searchText = this.value.toLowerCase();
+            const filteredData = data.filter(row =>
+                row.some(cell => cell.toLowerCase().includes(searchText))
+            );
+            populateTable(filteredData);
         });
 
-        // Add event listeners to table rows for showing details
-        var rows = table.querySelectorAll('tbody tr');
-        rows.forEach(function(row, index) {
-            row.addEventListener('click', function() {
-                // Retrieve data for each column
-                var slNo = row.cells[0].textContent;
-                var bibNumber = row.cells[1].textContent;
-                var firstName = row.cells[2].textContent;
-                var lastName = row.cells[3].textContent;
-                var mf = row.cells[4].textContent;
-                var email = row.cells[5].textContent;
-                var phone = row.cells[6].textContent;
-                var run = row.cells[7].textContent;
-                var tshirtSize = row.cells[8].textContent;
+        // Handle checkbox changes
+        data.forEach((_, index) => {
+            const checkbox = document.getElementById(`checkbox${index}`);
+            checkbox.addEventListener('change', function () {
+                const isChecked = this.checked;
+                // Replace the link with your Google Sheets API endpoint
+                const apiEndpoint = 'YOUR_GOOGLE_SHEETS_API_ENDPOINT_HERE';
 
-                // Display data in the details dropdown
-                document.getElementById('detailsSlNoTitle').textContent = 'Sl. No.:';
-                document.getElementById('detailsBIBNumberTitle').textContent = 'BIB Number:';
-                document.getElementById('detailsFirstNameTitle').textContent = 'First Name:';
-                document.getElementById('detailsLastNameTitle').textContent = 'Last Name:';
-                document.getElementById('detailsMFTitle').textContent = 'M/F:';
-                document.getElementById('detailsEmailTitle').textContent = 'Email:';
-                document.getElementById('detailsPhoneTitle').textContent = 'Phone:';
-                document.getElementById('detailsRunTitle').textContent = 'Run:';
-                document.getElementById('detailsTshirtSizeTitle').textContent = 'T-shirt Size:';
-
-                document.getElementById('detailsSlNo').textContent = slNo;
-                document.getElementById('detailsBIBNumber').textContent = bibNumber;
-                document.getElementById('detailsFirstName').textContent = firstName;
-                document.getElementById('detailsLastName').textContent = lastName;
-                document.getElementById('detailsMF').textContent = mf;
-                document.getElementById('detailsEmail').textContent = email;
-                document.getElementById('detailsPhone').textContent = phone;
-                document.getElementById('detailsRun').textContent = run;
-                document.getElementById('detailsTshirtSize').textContent = tshirtSize;
-
-                details.classList.add('active');
-            });
-        });
-    </script>
-</body>
-</html>
+                // Send the checkbox status to Google Sheets
+                // You can use fetch or other methods to make an HTTP request
+                // to update the data in your Google Sheets.
+                // Example:
+                fetch(apiEndpoint, {
+                    method: 'POST
