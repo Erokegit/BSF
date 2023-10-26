@@ -25,23 +25,43 @@
             margin: 10px 0;
         }
 
-        .dropdown {
+        .details {
             display: none;
-            background-color: #f9f9f9;
-            padding: 10px;
         }
 
-        .dropdown label {
+        .details.active {
             display: block;
-            margin: 5px 0;
+        }
+
+        .checkbox-container {
+            margin-top: 10px;
+        }
+
+        .details-title {
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
     <h1>Table Search Example</h1>
-    <input type="text" id="searchInput" placeholder="Search for something...">
+    <input type="text" id="searchInput" placeholder="Search for something">
     
-    <table class="table table-bordered table-hover table-condensed">
+    <table>
+        <thead>
+            <tr>
+                <th>Sl. No.</th>
+                <th>BIB Number</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>M/F</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Run</th>
+                <th>T-shirt Size</th>
+            </tr>
+        </thead>
+        <tbody>
+            <table class="table table-bordered table-hover table-condensed">
 <thead><tr><th title="Field #1">Sl. No.</th>
 <th title="Field #2">BIB Number</th>
 <th title="Field #3">First Name</th>
@@ -921,19 +941,42 @@
 <td>50K</td>
 <td>L</td>
 </tr>
+        </tbody>
+    </table>
 
-</tbody></table>
-
-    <div class="dropdown" id="resultDropdown">
-        <label for="checkbox">Add to Cart</label>
-        <input type="checkbox" id="checkbox">
+    <div class="details" id="details">
+        <h3>Details</h3>
+        <div class="details-title" id="detailsSlNoTitle"></div>
+        <div class="details-title" id="detailsBIBNumberTitle"></div>
+        <div class="details-title" id="detailsFirstNameTitle"></div>
+        <div class="details-title" id="detailsLastNameTitle"></div>
+        <div class="details-title" id="detailsMFTitle"></div>
+        <div class="details-title" id="detailsEmailTitle"></div>
+        <div class="details-title" id="detailsPhoneTitle"></div>
+        <div class="details-title" id="detailsRunTitle"></div>
+        <div class="details-title" id="detailsTshirtSizeTitle"></div>
+        <p id="detailsSlNo"></p>
+        <p id="detailsBIBNumber"></p>
+        <p id="detailsFirstName"></p>
+        <p id="detailsLastName"></p>
+        <p id="detailsMF"></p>
+        <p id="detailsEmail"></p>
+        <p id="detailsPhone"></p>
+        <p id="detailsRun"></p>
+        <p id="detailsTshirtSize"></p>
+        <div class="checkbox-container">
+            <label for="checkbox">Add to Cart</label>
+            <input type="checkbox" id="checkbox">
+        </div>
     </div>
 
     <script>
+        // Get the input field, table body, and details container
         var input = document.getElementById('searchInput');
         var table = document.querySelector('table');
-        var dropdown = document.getElementById('resultDropdown');
+        var details = document.getElementById('details');
 
+        // Add an event listener to the input field to handle searches
         input.addEventListener('input', function() {
             var query = input.value.toLowerCase();
             var rows = table.querySelectorAll('tbody tr');
@@ -942,14 +985,49 @@
                 var data = row.textContent.toLowerCase();
                 if (data.includes(query)) {
                     row.style.display = '';
-                    row.addEventListener('click', function() {
-                        // Show the dropdown and populate it with data
-                        dropdown.style.display = 'block';
-                        dropdown.innerHTML = '<label for="checkbox">Add to Cart</label><input type="checkbox" id="checkbox">';
-                    });
                 } else {
                     row.style.display = 'none';
                 }
+            });
+        });
+
+        // Add event listeners to table rows for showing details
+        var rows = table.querySelectorAll('tbody tr');
+        rows.forEach(function(row, index) {
+            row.addEventListener('click', function() {
+                // Retrieve data for each column
+                var slNo = row.cells[0].textContent;
+                var bibNumber = row.cells[1].textContent;
+                var firstName = row.cells[2].textContent;
+                var lastName = row.cells[3].textContent;
+                var mf = row.cells[4].textContent;
+                var email = row.cells[5].textContent;
+                var phone = row.cells[6].textContent;
+                var run = row.cells[7].textContent;
+                var tshirtSize = row.cells[8].textContent;
+
+                // Display data in the details dropdown
+                document.getElementById('detailsSlNoTitle').textContent = 'Sl. No.:';
+                document.getElementById('detailsBIBNumberTitle').textContent = 'BIB Number:';
+                document.getElementById('detailsFirstNameTitle').textContent = 'First Name:';
+                document.getElementById('detailsLastNameTitle').textContent = 'Last Name:';
+                document.getElementById('detailsMFTitle').textContent = 'M/F:';
+                document.getElementById('detailsEmailTitle').textContent = 'Email:';
+                document.getElementById('detailsPhoneTitle').textContent = 'Phone:';
+                document.getElementById('detailsRunTitle').textContent = 'Run:';
+                document.getElementById('detailsTshirtSizeTitle').textContent = 'T-shirt Size:';
+
+                document.getElementById('detailsSlNo').textContent = slNo;
+                document.getElementById('detailsBIBNumber').textContent = bibNumber;
+                document.getElementById('detailsFirstName').textContent = firstName;
+                document.getElementById('detailsLastName').textContent = lastName;
+                document.getElementById('detailsMF').textContent = mf;
+                document.getElementById('detailsEmail').textContent = email;
+                document.getElementById('detailsPhone').textContent = phone;
+                document.getElementById('detailsRun').textContent = run;
+                document.getElementById('detailsTshirtSize').textContent = tshirtSize;
+
+                details.classList.add('active');
             });
         });
     </script>
