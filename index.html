@@ -47,8 +47,7 @@
     <h1>Participant Data</h1>
     <input type="text" id="searchInput" placeholder="Search by First Name, Phone, Email, or BIB Number">
     
-    
-        <table class="table table-bordered table-hover table-condensed" id="data-table">
+    <table id="data-table">
 <thead><tr><th title="Field #1">Sl. No.</th>
 <th title="Field #2">BIB Number</th>
 <th title="Field #3">First Name</th>
@@ -928,6 +927,7 @@
 <td>50K</td>
 <td>L</td>
 </tr>
+</tbody>
     </table>
 
     <div id="data-details" style="display: none;">
@@ -969,17 +969,11 @@
                 const row = dataTable.rows[i];
                 let found = false;
 
-                // Check BIB number specifically (use j = 1 for BIB number column)
-                const cellText = row.cells[1].textContent.toLowerCase();
-                if (cellText.includes(searchText)) {
-                    found = true;
-                } else {
-                    for (let j = 2; j < row.cells.length; j++) {
-                        cellText = row.cells[j].textContent.toLowerCase();
-                        if (cellText.includes(searchText)) {
-                            found = true;
-                            break;
-                        }
+                for (let j = 2; j < row.cells.length; j++) {
+                    const cellText = row.cells[j].textContent.toLowerCase();
+                    if (cellText.includes(searchText)) {
+                        found = true;
+                        break;
                     }
                 }
 
