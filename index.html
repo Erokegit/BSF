@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Participant Data</title>
+    <title>BSF Data</title>
     <style>
+        /* Default light mode styles */
+        body {
+            background-color: #ffffff;
+            color: #000000;
+        }
 
-         @media (prefers-color-scheme: dark) {
+        /* Dark mode styles */
+        @media (prefers-color-scheme: dark) {
             body {
                 background-color: #000000;
                 color: #ffffff;
             }
         }
-        
+
         table {
             border-collapse: collapse;
             width: 80%;
@@ -35,14 +41,16 @@
             padding: 5px;
             margin: 10px 0;
         }
+
+        /* Add more CSS styles as needed for dark mode/light mode */
     </style>
 </head>
 <body>
-    <h1>Participant Data</h1>
+    <h1>BSF Data</h1>
     <input type="text" id="searchInput" placeholder="Search by First Name, Phone, Email, or BIB Number">
-
-            <!-- Add more rows as needed -->
-            <table class="table table-bordered table-hover table-condensed" id="data-table">
+    
+    <table id="data-table">
+        <table class="table table-bordered table-hover table-condensed">
 <thead><tr><th title="Field #1">Sl. No.</th>
 <th title="Field #2">BIB Number</th>
 <th title="Field #3">First Name</th>
@@ -922,7 +930,7 @@
 <td>50K</td>
 <td>L</td>
 </tr>
-        </tbody>
+</tbody>
     </table>
 
     <div id="data-details" style="display: none;">
@@ -930,67 +938,16 @@
         <div id="details-container"></div>
     </div>
 
+    <button id="toggleDarkMode">Toggle Dark Mode</button>
+
     <script>
-        const searchInput = document.getElementById('searchInput');
-        const dataTable = document.getElementById('data-table');
-        const detailsContainer = document.getElementById('details-container');
-        const dataDetails = document.getElementById('data-details');
+        // JavaScript for the dark mode toggle button
+        const toggleDarkModeButton = document.getElementById('toggleDarkMode');
+        const body = document.body;
 
-        dataTable.addEventListener('click', function (e) {
-            if (e.target.tagName === 'TD') {
-                const row = e.target.parentElement;
-                displayDetails(row);
-            }
+        toggleDarkModeButton.addEventListener('click', function () {
+            body.classList.toggle('dark-mode');
         });
-
-        function displayDetails(row) {
-            const cells = row.getElementsByTagName('td');
-            let detailsHTML = '';
-
-            for (let i = 0; i < cells.length; i++) {
-                const header = dataTable.rows[0].cells[i].textContent;
-                const value = cells[i].textContent;
-                detailsHTML += `${header}: ${value}<br>`;
-            }
-
-            detailsContainer.innerHTML = detailsHTML;
-            dataDetails.style.display = 'block';
-        }
-
-        searchInput.addEventListener('input', function () {
-            const searchText = searchInput.value.toLowerCase();
-
-            for (let i = 1; i < dataTable.rows.length; i++) {
-                const row = dataTable.rows[i];
-                let found = false;
-
-                for (let j = 2; j < row.cells.length; j++) {
-                    const cellText = row.cells[j].textContent.toLowerCase();
-                    if (cellText.includes(searchText)) {
-                        found = true;
-                        break;
-                    }
-                }
-
-                if (found) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            }
-        });
-
-        <button id="toggleDarkMode">Toggle Dark Mode</button>
-
-
-    const toggleDarkModeButton = document.getElementById('toggleDarkMode');
-    const body = document.body;
-
-    toggleDarkModeButton.addEventListener('click', function () {
-        body.classList.toggle('dark-mode');
-    });
-
-
     </script>
 </body>
 </html>
