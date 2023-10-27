@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>BSF DATA</title>
+    <title>BSf Data</title>
     <style>
         /* Default light mode styles */
         body {
@@ -47,7 +47,7 @@
     <h1>BSF Data</h1>
     <input type="text" id="searchInput" placeholder="Search by First Name, Phone, Email, or BIB Number">
     
-    
+
         <table class="table table-bordered table-hover table-condensed" id="data-table">
 <thead><tr><th title="Field #1">Sl. No.</th>
 <th title="Field #2">BIB Number</th>
@@ -970,11 +970,17 @@
                 const row = dataTable.rows[i];
                 let found = false;
 
-                for (let j = 2; j < row.cells.length; j++) {
-                    const cellText = row.cells[j].textContent.toLowerCase();
-                    if (cellText.includes(searchText)) {
-                        found = true;
-                        break;
+                // Check BIB number specifically (use j = 1 for BIB number column)
+                const cellText = row.cells[1].textContent.toLowerCase();
+                if (cellText.includes(searchText)) {
+                    found = true;
+                } else {
+                    for (let j = 2; j < row.cells.length; j++) {
+                        cellText = row.cells[j].textContent.toLowerCase();
+                        if (cellText.includes(searchText)) {
+                            found = true;
+                            break;
+                        }
                     }
                 }
 
