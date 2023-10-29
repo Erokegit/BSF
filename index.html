@@ -48,7 +48,7 @@
     <input type="text" id="searchInput" placeholder="Search by First Name, Phone, Email, or BIB Number">
     
     <table id="data-table">
-   
+        <table class="table table-bordered table-hover table-condensed">
 <thead><tr><th title="Field #1">Sl. No.</th>
 <th title="Field #2">BIB Number</th>
 <th title="Field #3">First Name</th>
@@ -928,8 +928,7 @@
 <td>50K</td>
 <td>L</td>
 </tr>
-
-        </tbody>
+</tbody>
     </table>
 
     <div id="data-details" style="display: none;">
@@ -937,57 +936,58 @@
         <div id="details-container"></div>
     </div>
 
-    <script>
-        const searchInput = document.getElementById('searchInput');
-        const dataTable = document.getElementById('data-table');
-        const detailsContainer = document.getElementById('details-container');
-        const dataDetails = document.getElementById('data-details');
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const dataTable = document.getElementById('data-table');
+    const detailsContainer = document.getElementById('details-container');
+    const dataDetails = document.getElementById('data-details');
 
-        dataTable.addEventListener('click', function (e) {
-            if (e.target.tagName === 'TD' && e.target.cellIndex !== 0) {
-                const row = e.target.parentElement;
-                displayDetails(row);
-            }
-        });
+    dataTable.addEventListener('click', function (e) {
+        if (e.target.tagName === 'TD') {
+            const row = e.target.parentElement;
+            displayDetails(row);
+        }
+    });
 
-        function displayDetails(row) {
-            const cells = row.getElementsByTagName('td');
-            let detailsHTML = '';
+    function displayDetails(row) {
+        const cells = row.getElementsByTagName('td');
+        let detailsHTML = '';
 
-            for (let i = 0; i < cells.length; i++) {
-                const header = dataTable.rows[0].cells[i].textContent;
-                const value = cells[i].textContent;
-                detailsHTML += `${header}: ${value}<br>`;
-            }
-
-            detailsContainer.innerHTML = detailsHTML;
-            dataDetails.style.display = 'block';
+        for (let i = 0; i < cells.length; i++) {
+            const header = dataTable.rows[0].cells[i].textContent;
+            const value = cells[i].textContent;
+            detailsHTML += `${header}: ${value}<br>`;
         }
 
-        searchInput.addEventListener('input', function () {
-            const searchText = searchInput.value.toLowerCase();
+        detailsContainer.innerHTML = detailsHTML;
+        dataDetails.style.display = 'block';
+    }
 
-            for (let i = 1; i < dataTable.rows.length; i++) {
-                const row = dataTable.rows[i];
-                let found = false;
+    searchInput.addEventListener('input', function () {
+        const searchText = searchInput.value.toLowerCase();
 
-                for (let j = 2; j < row.cells.length; j++) {
-                    const cellText = row.cells[j].textContent.toLowerCase();
-                    
-                    // Allow for spaces in BIB number
-                    if (cellText.includes(searchText) || cellText.replace(/\s/g, '').includes(searchText)) {
-                        found = true;
-                        break;
-                    }
-                }
+        for (let i = 1; i < dataTable.rows.length; i++) {
+            const row = dataTable.rows[i];
+            let found = false;
 
-                if (found) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
+            for (let j = 1; j < row.cells.length; j++) {
+                const cellText = row.cells[j].textContent.toLowerCase();
+                
+                // Allow for spaces in BIB number
+                if (cellText.includes(searchText) || cellText.replace(/\s/g, '').includes(searchText)) {
+                    found = true;
+                    break;
                 }
             }
-        });
-    </script>
+
+            if (found) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
+</script>
+
 </body>
 </html>
