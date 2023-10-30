@@ -70,7 +70,7 @@
 <td align="right">9880511150</td>
 <td>50K</td>
 <td>M</td>
-<div id="radioContainer"></div>    
+ 
 </tr>
 <tr>
 <td align="right">2</td>
@@ -997,35 +997,6 @@
 
 
     
-// Get the container element by its id
-var container = document.getElementById("radioContainer");
-
-// Create an array of radio button values and labels
-var radioOptions = [
-                     { value: "option1", label: "YES" },
-                     { value: "option2", label: "NO" }
-                   ];
-
-// Loop through the array and create radio buttons
-radioOptions.forEach(function (option) {
-    // Create a radio button element
-    var radio = document.createElement("input");
-    radio.type = "radio";
-    radio.name = "YES"; // Give all radio buttons the same name to make them mutually exclusive
-    radio.value = option.value;
-
-    // Create a label for the radio button
-    var label = document.createElement("label");
-    label.textContent = option.label;
-
-    // Append the radio button and label to the container
-    container.appendChild(radio);
-    container.appendChild(label);
-
-    // Add a line break for better formatting
-    container.appendChild(document.createElement("br"));
-});
-
 
 
 
