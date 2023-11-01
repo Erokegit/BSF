@@ -64,7 +64,7 @@
         </thead>
 <tbody><tr>
 <td align="right">1</td>
-<td>5001</td>
+<td>B42 5001</td>
 <td>Shyamaprasad</td>
 <td>Srinivas</td>
 <td>Male</td>
@@ -948,8 +948,9 @@
 
         // Function to add checkboxes to each row
         function addCheckboxesToRows() {
-            for (let i = 1; i < dataTable.rows.length; i++) {
-                const row = dataTable.rows[i];
+            const rows = dataTable.getElementsByTagName('tr');
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
                 const checkboxCell = document.createElement('td');
                 const checkbox = document.createElement('input');
                 checkbox.type = 'checkbox';
@@ -982,8 +983,9 @@
         searchInput.addEventListener('input', function () {
             const searchText = searchInput.value.toLowerCase();
 
-            for (let i = 1; i < dataTable.rows.length; i++) {
-                const row = dataTable.rows[i];
+            const rows = dataTable.getElementsByTagName('tr');
+            for (let i = 1; i < rows.length; i++) {
+                const row = rows[i];
                 let found = false;
 
                 for (let j = 2; j < row.cells.length; j++) {
