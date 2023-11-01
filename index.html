@@ -956,6 +956,13 @@
                 checkbox.type = 'checkbox';
                 checkboxCell.appendChild(checkbox);
                 row.insertBefore(checkboxCell, row.cells[0]);
+                
+                // Restore checkbox state from localStorage
+                const checkboxKey = 'checkbox_' + row.cells[2].textContent; // Using BIB Number as a key
+                const currentState = localStorage.getItem(checkboxKey);
+                if (currentState === 'true') {
+                    checkbox.checked = true;
+                }
             }
         }
 
@@ -979,6 +986,27 @@
             detailsContainer.innerHTML = detailsHTML;
             dataDetails.style.display = 'block';
         }
+
+        // Function to toggle checkbox state and update localStorage
+        function toggleCheckboxState(row) {
+            const checkboxKey = 'checkbox_' + row.cells[2].textContent; // Using BIB Number as a key
+            const currentState = localStorage.getItem(checkboxKey);
+            if (currentState === 'true') {
+                localStorage.setItem(checkboxKey, 'false');
+            } else {
+                localStorage.setItem(checkboxKey, 'true');
+            }
+        }
+
+        // Handle clicks on checkboxes
+        dataTable.addEventListener('change', function (e) {
+            if (e.target.type === 'checkbox') {
+                toggleCheckboxState(e.target.parentElement.parentElement);
+            }
+        });
+
+        // Add checkboxes to each row when the page loads
+        addCheckboxesToRows();
 
         searchInput.addEventListener('input', function () {
             const searchText = searchInput.value.toLowerCase();
@@ -1005,9 +1033,6 @@
                 }
             }
         });
-
-        // Add checkboxes to each row when the page loads
-        addCheckboxesToRows();
     </script>
 </body>
 </html>
